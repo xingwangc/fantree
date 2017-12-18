@@ -63,7 +63,7 @@ func defaultHandler(self *Node, in chan chan interface{}, out chan interface{}) 
 }
 
 // NewNode will construct a new node with the spcified name.
-// And user also can call the API exposed to set other filed which a not
+// And user also can call the API exposed to set other fileds which are not
 // necessary.
 func NewNode(name string, options ...func(nd *Node)) *Node {
 	node := new(Node)
