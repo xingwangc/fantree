@@ -1,10 +1,14 @@
+// Copyright 2017 Simon Cai <xingwangc@gmail.com>. All rights reserved.
+// Use of this source code is governed by a BSD-style
+// license that can be found in the LICENSE file.
+
 package fantree_test
 
 import (
 	"github.com/xingwangc/fantree"
 )
 
-func Example_SetupForest_1() {
+func Example_setupForest_1() {
 	nodeList := []*fantree.Node{}
 	nodeList = append(nodeList, fantree.NewNode("一"))
 	nodeList = append(nodeList, fantree.NewNode("二",
@@ -42,7 +46,7 @@ func Example_SetupForest_1() {
 	// Name: 六
 }
 
-func Example_SetupForest_2() {
+func Example_setupForest_2() {
 
 	nodeList := []*fantree.Node{}
 	nodeList = append(nodeList, fantree.NewNode("一"))
