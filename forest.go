@@ -171,3 +171,45 @@ func (frt *Forest) Pipeline() error {
 	wg.Wait()
 	return nil
 }
+
+func treeToLink(root *TreeNode) (head *LinkNode, err error) {
+	if root == nil || root.Value == nil {
+		return nil, fmt.Errorf("Found a bad node[%v]", *root)
+	}
+
+	link := NewLinkNode(root.Value)
+
+	if len(root.Next) > 0 {
+		next, err := forestToLink(root.Next)
+		if err != nil {
+			return nil, err
+		}
+		link.Next = next
+	}
+	return link, nil
+}
+
+func forestToLink(roots []*TreeNode) (head *LinkNode, err error) {
+	links := []*LinkNode{}
+	for _, root := range roots {
+		link, err := treeToLink(root)
+		if err != nil {
+			return nil, err
+		}
+		links = append(links, link)
+	}
+
+	if len(links) == 0 {
+		return nil, fmt.Errorf("Empty link")
+	}
+
+	return MergeLink(links)
+}
+
+//ToLink will convert a forest to a single link.
+// The rules of conversion include:
+//	1. Forest and Tree will be unfolded to multiple links at first
+//	2. The final link is merged from links.
+func (frt *Forest) ToLink() (head *LinkNode, err error) {
+	return forestToLink(frt.Roots)
+}
