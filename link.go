@@ -117,7 +117,7 @@ func (lk *LinkNode) Print() {
 // Pipeline of the Link will start goroutines to execute user defined
 // handlers. But all goroutines are executing synchronously in sequence
 // the link defined.
-func (lk *LinkNode) Pipeline(metadata interface{}) error {
+func (lk *LinkNode) Pipeline(metadata interface{}) (output interface{}, err error) {
 	input := make(chan interface{})
 
 	go func() {
@@ -139,7 +139,7 @@ func (lk *LinkNode) Pipeline(metadata interface{}) error {
 		if lp.Next == nil {
 			wg.Add(1)
 			go func() {
-				output := <-node.OutC
+				output = <-node.OutC
 				fmt.Println("output:", output)
 				wg.Done()
 			}()
@@ -152,5 +152,5 @@ func (lk *LinkNode) Pipeline(metadata interface{}) error {
 		}()
 	}
 	wg.Wait()
-	return nil
+	return output, nil
 }
