@@ -140,7 +140,6 @@ func (lk *LinkNode) Pipeline(metadata interface{}) (output interface{}, err erro
 			wg.Add(1)
 			go func() {
 				output = <-node.OutC
-				fmt.Println("output:", output)
 				wg.Done()
 			}()
 		}
