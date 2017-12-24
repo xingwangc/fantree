@@ -40,11 +40,11 @@ func (lk *LinkNode) Tail() (tail *LinkNode, err error) {
 }
 
 // MergeLink merge multiple links to 1 link. The rules are:
-//	1. Suppose every link in the list has the same prority. So randomly
+//1. Suppose every link in the list has the same prority. So randomly
 // choose one as the begining.
-//	2. If 1 node exists in more than 1 links, links will be merged around
+//2. If 1 node exists in more than 1 links, links will be merged around
 // around that node.
-//	3. If nodes in 2 links are irrelevant, they will be merged alternately.
+//3. If nodes in 2 links are irrelevant, they will be merged alternately.
 func MergeLink(heads []*LinkNode) (head *LinkNode, err error) {
 	if len(heads) == 0 {
 		return head, fmt.Errorf("Should provide at least 1 head")
