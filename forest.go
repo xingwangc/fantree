@@ -141,7 +141,7 @@ func (frt *Forest) GetTree(name string) (root *TreeNode, err error) {
 
 // Pipeline launch goroutines for every nodes in the forest to execute the node's handler concurrently.
 // It will Set up a wait group to sync the execution of all nodes.
-func (frt *Forest) Pipeline() error {
+func (frt *Forest) Pipeline(metadata interface{}) error {
 	var wg sync.WaitGroup
 
 	for _, tp := range frt.NodePool {

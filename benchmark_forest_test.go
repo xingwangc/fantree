@@ -133,6 +133,8 @@ func BenchmarkForestPipeline(b *testing.B) {
 		if err != nil {
 			b.Error(err)
 		}
-		forest.Pipeline()
+
+		var metadata interface{}
+		forest.Pipeline(metadata)
 	}
 }

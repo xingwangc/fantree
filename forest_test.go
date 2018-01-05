@@ -200,5 +200,6 @@ func Test_ForestPipeline(t *testing.T) {
 	if err != nil {
 		t.Error(err)
 	}
-	forest.Pipeline()
+	var metadata interface{}
+	forest.Pipeline(metadata)
 }
