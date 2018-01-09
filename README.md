@@ -28,11 +28,11 @@ Then how about a new command `E` is defined to just depends on `A`, and the comm
 
 ## fantree
 
-The package *fantree* is designed to provide a middle layer to constract a special forest for commands defined like we discussed previously. When users defining the commands, they also can define a handler for every commands depends on they function they want. If there isn't a handler provided for command(task), package will provide a default one, but it do nothing except  passing the data which it got out.
+The package *fantree* is designed to provide a middle layer to constract a special forest for commands defined like we discussed previously. When users defining the commands, they also can define a handler for every commands depends on the function they want. If there isn't a handler provided for command(task), package provides a default one, but it do nothing except closing the out channel as signal.
 
 Then user can invoke the `Pipeline` method of forest to execute pipeline. Which will do the pipeline as user defined automatically. Interdependent commands will be executed synchronously, irrelevant commands will be executed concurrently.
 
-*fantree* use the **fan-out**,**fan-in** mode, and it setup a forest based on a special tree, so it is named *fantree*. Besides the **fan-out**, **fan-in**, it also used the **future/promise** mode.
+*fantree* use the **fan-out**,**fan-in** mode, and it setup a forest based on a directed graph, so it is named *fantree*. Besides the **fan-out**, **fan-in**, it also used the **future/promise** mode.
 
 ### Construct the forest
 
@@ -47,7 +47,7 @@ Let's continue our example. Let's list all commands in a table again.
 | E       |        | A     |
 | F       | C      |       |
 
-it should be constructed as a forest like:
+it should be constructed as a special forest(actually it is a set of directed graphs) like:
 
 	    E
 	  /
