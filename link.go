@@ -146,7 +146,7 @@ func (lk *LinkNode) Pipeline(metadata interface{}) (output interface{}, err erro
 
 		wg.Add(1)
 		go func() {
-			node.Handler(node, inC, node.OutC)
+			node.Cmd.Handler(node, inC, node.OutC)
 			wg.Done()
 		}()
 	}

@@ -160,7 +160,7 @@ func (frt *Forest) Pipeline(metadata interface{}) error {
 
 		//start the goroutine to execute node handler
 		go func() {
-			node.Handler(node, inC, node.OutC)
+			node.Cmd.Handler(node, inC, node.OutC)
 			wg.Done()
 		}()
 

@@ -7,7 +7,15 @@ package fantree
 // NodeHander is a type of handler function. User just need to follow the
 // signature to implement a custom function for the node to handle specific
 // computation.
-type NodeHander func(self *Node, in chan chan interface{}, out chan interface{})
+type CmdHandler func(self *Node, in chan chan interface{}, out chan interface{})
+
+// Command just define behavior which include a name to identify the behaivor
+// It also has a Handler to define the behavior.
+type Command struct {
+	Name string
+
+	Handler CmdHandler //Handler is implemented to do some custom computation
+}
 
 //Node is the basic structure of fantree.
 type Node struct {
@@ -16,8 +24,7 @@ type Node struct {
 	Name     string           // Name of the node, which should be unquely identify a node
 	OutC     chan interface{} // OutC is a channel, which should be passed to the Handler and set by Handler to announce the Handler is done. Then nodes which after and depends on this can be unblocked.
 	Value    interface{}      //Value is used to store data of node.
-
-	Handler NodeHander //Handler is implemented to do some custom computation
+	Cmd      Command          //Let the Cmd to be an attribute of Node make sure that a commnad could be executed more than 1 times in pipeline.
 }
 
 // SetNodePreName set the PreName for node when call NewNode to construct
@@ -47,14 +54,14 @@ func SetNodeValue(value interface{}) func(nd *Node) {
 	}
 }
 
-// SetNodeHandler set handler for node when call NewNode to construct a node.
+// SetCommand set command for node when call NewNode to construct a node.
 // To expose a function to do that means the field
-// is optional for initializing a node. If do not set a custom handler
+// is optional for initializing a node. If do not set a customized command
 // NewNode will use a defaultHandler which just close the OutC to make sure
 // node behind would not be blocked forever.
-func SetNodeHandler(handler NodeHander) func(nd *Node) {
+func SetNodeCommand(name string, handler CmdHandler) func(nd *Node) {
 	return func(nd *Node) {
-		nd.Handler = handler
+		nd.Cmd = Command{name, handler}
 	}
 }
 
@@ -69,7 +76,7 @@ func NewNode(name string, options ...func(nd *Node)) *Node {
 	node := new(Node)
 	node.Name = name
 	node.OutC = make(chan interface{})
-	node.Handler = defaultHandler
+	node.Cmd = Command{"default", defaultHandler}
 
 	for _, opt := range options {
 		opt(node)

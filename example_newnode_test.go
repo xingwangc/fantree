@@ -36,10 +36,10 @@ func Example_newNode() {
 	node := fantree.NewNode("test_node",
 		fantree.SetNodePreName("previous"),
 		fantree.SetNodeNextName("next"),
-		fantree.SetNodeHandler(handler),
+		fantree.SetNodeCommand("test", handler),
 	)
 
-	go node.Handler(node, inC, outC)
+	go node.Cmd.Handler(node, inC, outC)
 
 	close(inC)
 	<-outC

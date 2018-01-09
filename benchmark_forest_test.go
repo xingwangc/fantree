@@ -112,22 +112,22 @@ func BenchmarkForestPipeline(b *testing.B) {
 	for i := 0; i < b.N; i++ {
 		nodeList := []*fantree.Node{}
 		nodeList = append(nodeList, fantree.NewNode("一",
-			fantree.SetNodeHandler(fb_handler_1)))
+			fantree.SetNodeCommand("一", fb_handler_1)))
 		nodeList = append(nodeList, fantree.NewNode("二",
 			fantree.SetNodePreName("一"),
-			fantree.SetNodeHandler(fb_handler_2)))
+			fantree.SetNodeCommand("二", fb_handler_2)))
 		nodeList = append(nodeList, fantree.NewNode("三",
 			fantree.SetNodePreName("一"),
-			fantree.SetNodeHandler(fb_handler_3)))
+			fantree.SetNodeCommand("三", fb_handler_3)))
 		nodeList = append(nodeList, fantree.NewNode("四",
 			fantree.SetNodeNextName("六"),
-			fantree.SetNodeHandler(fb_handler_4)))
+			fantree.SetNodeCommand("四", fb_handler_4)))
 		nodeList = append(nodeList, fantree.NewNode("五",
 			fantree.SetNodeNextName("六"),
-			fantree.SetNodeHandler(fb_handler_5)))
+			fantree.SetNodeCommand("五", fb_handler_5)))
 		nodeList = append(nodeList, fantree.NewNode("六",
 			fantree.SetNodePreName("四"),
-			fantree.SetNodeHandler(fb_handler_6)))
+			fantree.SetNodeCommand("六", fb_handler_6)))
 
 		forest, err := fantree.NewForest(nodeList)
 		if err != nil {

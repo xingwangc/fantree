@@ -179,22 +179,22 @@ func handler_6(node *fantree.Node, inC chan chan interface{}, outC chan interfac
 func Test_ForestPipeline(t *testing.T) {
 	nodeList := []*fantree.Node{}
 	nodeList = append(nodeList, fantree.NewNode("一",
-		fantree.SetNodeHandler(handler_1)))
+		fantree.SetNodeCommand("一", handler_1)))
 	nodeList = append(nodeList, fantree.NewNode("二",
 		fantree.SetNodePreName("一"),
-		fantree.SetNodeHandler(handler_2)))
+		fantree.SetNodeCommand("二", handler_2)))
 	nodeList = append(nodeList, fantree.NewNode("三",
 		fantree.SetNodePreName("一"),
-		fantree.SetNodeHandler(handler_3)))
+		fantree.SetNodeCommand("三", handler_3)))
 	nodeList = append(nodeList, fantree.NewNode("四",
 		fantree.SetNodeNextName("六"),
-		fantree.SetNodeHandler(handler_4)))
+		fantree.SetNodeCommand("四", handler_4)))
 	nodeList = append(nodeList, fantree.NewNode("五",
 		fantree.SetNodeNextName("六"),
-		fantree.SetNodeHandler(handler_5)))
+		fantree.SetNodeCommand("五", handler_5)))
 	nodeList = append(nodeList, fantree.NewNode("六",
 		fantree.SetNodePreName("四"),
-		fantree.SetNodeHandler(handler_6)))
+		fantree.SetNodeCommand("六", handler_6)))
 
 	forest, err := fantree.NewForest(nodeList)
 	if err != nil {
